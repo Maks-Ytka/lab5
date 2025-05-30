@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/roman-mazur/architecture-practice-4-template/httptools"
-	"github.com/roman-mazur/architecture-practice-4-template/signal"
+	"github.com/niglajkin/lab4/httptools"
+	"github.com/niglajkin/lab4/signal"
 )
 
 var (
