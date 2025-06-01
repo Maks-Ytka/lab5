@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  docker-compose-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build all images
+        run: docker compose -f docker-compose.yaml build
+
+      - name: Run integration tests
+        run: |
+          docker compose \
+            -f docker-compose.yaml \
+            -f docker-compose.test.yaml \
+            up --build --exit-code-from test --abort-on-container-exit
+
+      - name: Tear down containers
+        if: always()
+        run: docker compose -f docker-compose.yaml -f docker-compose.test.yaml down --volumes --remove-orphans
