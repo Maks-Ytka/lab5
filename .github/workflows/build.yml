@@ -7,13 +7,13 @@ on:
   pull_request:
 
 jobs:
-  docker-compose-ci:
+  test-and-integration:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build all images
+      - name: Build images (and run unit tests inside each Dockerfile)
         run: docker compose -f docker-compose.yaml build
 
       - name: Run integration tests
