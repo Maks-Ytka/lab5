@@ -13,15 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build images (and run unit tests inside each Dockerfile)
-        run: docker compose -f docker-compose.yaml build
-
       - name: Run integration tests
         run: |
           docker compose \
             -f docker-compose.yaml \
             -f docker-compose.test.yaml \
             up --build --exit-code-from test --abort-on-container-exit
+
+      - name: Build images (runs unit tests inside each Dockerfile)
+        run: docker compose -f docker-compose.yaml build
 
       - name: Tear down containers
         if: always()
